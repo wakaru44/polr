@@ -6,3 +6,13 @@ env
 .env.bak
 .env.example
 composer.phar
+
+## temp files
+*swp
+*log
+tmp/
+
+## Secrets
+!.secrets/
+.secrets/*
+!.secrets/*.sample

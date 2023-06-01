@@ -1,8 +1,9 @@
 services:
   polr:
     build:
-      context: app
+      context: .
       target: builder
+      dockerfile: docker/Dockerfile
     ports: 
       - '8082:80'
     environment:
@@ -11,7 +12,7 @@ services:
       - DB_PORT=3306
       - DB_DATABASE=polr
       - DB_USERNAME=polruser
-      - DB_PASSWORD=somewordpresses
+      - DB_PASSWORD=polaris3d
     volumes:
       - ./app:/var/www/html/
     networks:
@@ -32,11 +33,11 @@ services:
     networks:
       - backnet
     environment:
-      - MYSQL_ROOT_PASSWORD=somewordpresses
       - MYSQL_USER=polruser
       - MYSQL_PASSWORD=polaris3d
       - MYSQL_DATABASE=polr
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/polr-db-password
+      # - MYSQL_ROOT_PASSWORD=somewordpresses
     expose:
       - 3306
       - 33060
@@ -47,3 +48,7 @@ volumes:
 
 networks:
   backnet:
+
+secrets:
+  polr-db-password:
+    file: .secrets/db-password
