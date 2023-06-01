@@ -5,7 +5,7 @@ help: ## Show this help
 
 
 up: ## docker compose up
-	docker compose --build up -d
+	docker compose up --build -d
 
 down: ## down
 	docker compose down

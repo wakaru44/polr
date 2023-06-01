@@ -2,10 +2,9 @@ services:
   polr:
     build:
       context: .
-      target: builder
-      dockerfile: docker/Dockerfile
-    ports: 
-      - '8082:80'
+      dockerfile: docker/Dockerfile.php
+    expose:
+      - '9000'
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=database
@@ -17,6 +16,21 @@ services:
       - ./app:/var/www/html/
     networks:
       - backnet
+    depends_on:
+      - database
+
+  apache:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.apache
+    ports:
+      - '8082:80'
+    networks:
+      - frontnet
+      - backnet
+    depends_on:
+      - polr
+      - database
 
   database:
     image: mariadb:10-focal
@@ -48,6 +62,7 @@ volumes:
 
 networks:
   backnet:
+  frontnet:
 
 secrets:
   polr-db-password:
