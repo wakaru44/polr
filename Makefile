@@ -4,7 +4,7 @@ help: ## Show this help
 
 
 
-up: ## docker compose up
+buildup: ## docker compose up with build
 	docker compose up --build -d
 
 down: ## down
